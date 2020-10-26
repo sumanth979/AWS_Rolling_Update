@@ -45,10 +45,6 @@ Resources:
   ELB:
     Type: AWS::ElasticLoadBalancingV2::LoadBalancer
     Properties:
-      ConnectionDrainingPolicy:
-        Enabled: true
-        Timeout: 30
-      CrossZone: true
       IpAddressType: ipv4
       Name:
         Ref: InternalELBName
@@ -97,40 +93,6 @@ Resources:
     - ELB
     - ELBTargetGroup
 
-  AutoScalingGroup:
-    Type: AWS::AutoScaling::AutoScalingGroup
-    Properties:
-      MaxSize:
-        Ref: ASGMaxSize
-      MinSize:
-        Ref: ASGMinSize
-      DesiredCapacity:
-        Ref: ASGSize
-      HealthCheckType: ELB
-      HealthCheckGracePeriod: '900'
-      LaunchConfigurationName:
-        Ref: LaunchConfiguration
-      VPCZoneIdentifier:
-        Ref: Subnets
-      TargetGroupARNs: [
-        Ref: ELBTargetGroup ] 
-      TerminationPolicies:
-      - Default
-    CreationPolicy:
-      ResourceSignal:
-        Count: 1
-        Timeout: PT10M
-    UpdatePolicy:
-      AutoScalingRollingUpdate:
-        MaxBatchSize: '1'
-        MinInstancesInService: '1'
-        PauseTime: PT10M
-        SuspendProcesses:
-        - AlarmNotification
-        WaitOnResourceSignals: true
-    DependsOn:
-    - LaunchConfiguration
-  
   LaunchConfiguration:
     Type: AWS::AutoScaling::LaunchConfiguration
     Properties:
@@ -178,6 +140,40 @@ Resources:
             - "\n"
     DependsOn:
     - InstanceSecurityGroup
+  
+  AutoScalingGroup:
+    Type: AWS::AutoScaling::AutoScalingGroup
+    Properties:
+      MaxSize:
+        Ref: ASGMaxSize
+      MinSize:
+        Ref: ASGMinSize
+      DesiredCapacity:
+        Ref: ASGSize
+      HealthCheckType: ELB
+      HealthCheckGracePeriod: '900'
+      LaunchConfigurationName:
+        Ref: LaunchConfiguration
+      VPCZoneIdentifier:
+        Ref: Subnets
+      TargetGroupARNs: [
+        Ref: ELBTargetGroup ] 
+      TerminationPolicies:
+      - Default
+    CreationPolicy:
+      ResourceSignal:
+        Count: 1
+        Timeout: PT10M
+    UpdatePolicy:
+      AutoScalingRollingUpdate:
+        MaxBatchSize: '1'
+        MinInstancesInService: '1'
+        PauseTime: PT10M
+        SuspendProcesses:
+        - AlarmNotification
+        WaitOnResourceSignals: true
+    DependsOn:
+    - LaunchConfiguration
 
 Parameters:
   MyVPCId:
@@ -193,11 +189,11 @@ Parameters:
   ASGSize:
     Description: Desired number of EC2 instances in Auto Scaling Group
     Type: Number
-    Default: 2
+    Default: 1
   ASGMinSize:
     Description: Min number of EC2 instances in Auto Scaling Group
     Type: Number
-    Default: 1
+    Default: 0
   ASGMaxSize:
     Description: Max number of EC2 instances in Auto Scaling Group
     Type: Number
@@ -220,7 +216,7 @@ Parameters:
 Mappings:
   RegionMap:
     us-east-1:
-      AMI: ami-098f16afa9edf40be
+      AMI: ami-0947d2ba12ee1ff75
 
 Outputs:
   ELB:
