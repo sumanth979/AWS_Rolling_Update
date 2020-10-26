@@ -1,0 +1,38 @@
+[
+    {
+        "ParameterKey": "ASGSize",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "ASGSizeMinSize",
+        "ParameterValue": "1"
+    },
+    {
+        "ParameterKey": "ASGSizeMaxSize",
+        "ParameterValue": "4"
+    },
+    {
+        "ParameterKey": "MyVPCId",
+        "ParameterValue": "<>"
+    },
+    {
+        "ParameterKey": "Subnets",
+        "ParameterValue": "<>"
+    },
+    {
+        "ParameterKey": "InstanceType",
+        "ParameterValue": "t2.micro"
+    },
+    {
+        "ParameterKey": "KeyName",
+        "ParameterValue": "my_ec2_key"
+    },
+    {
+        "ParameterKey": "InternalELBName",
+        "ParameterValue": "myapp-internal-elb"
+    },
+    {
+        "ParameterKey": "VersionParameter",
+        "ParameterValue": 1
+    }
+]
