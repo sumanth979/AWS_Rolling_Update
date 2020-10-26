@@ -3,10 +3,10 @@
 <img src="https://github.com/sumanth979/AWS_Rolling_Update/blob/main/rolling_update.gif" alt="Rolling Upgrade">
 
 ### AWS Resources Invloved:
-EC2 - Elastic Compute Cloud
-ASG - Auto Scaling Group
-ALB - Application Load Balancer
-SG - Secuirty Groups
+* EC2 - Elastic Compute Cloud
+* ASG - Auto Scaling Group
+* ALB - Application Load Balancer
+* SG - Secuirty Groups
 
 - - - -
 ### Deployment Architecture Diagram
